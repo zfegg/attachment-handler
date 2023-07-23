@@ -1,6 +1,7 @@
 {
   "name": "zfegg/attachment-handler",
   "description": "附件上传组件",
+  "license": "MIT",
   "authors": [
     {
       "name": "Moln",

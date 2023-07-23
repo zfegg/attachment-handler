@@ -1,0 +1,51 @@
+{
+  "name": "zfegg/attachment-handler",
+  "description": "附件上传组件",
+  "authors": [
+    {
+      "name": "Moln",
+      "email": "moln.xie@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Zfegg\\AttachmentHandler\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "ZfeggTest\\AttachmentHandler\\": "test/"
+    }
+  },
+  "require": {
+    "php": ">=8.0",
+    "ext-json": "*",
+    "psr/container": "^1.0 | ^2.0",
+    "psr/http-factory": "^1.0",
+    "psr/http-server-handler": "^1.0",
+    "siriusphp/validation": "^3.0",
+    "league/flysystem": "^1.1",
+    "laminas/laminas-diactoros": "^2.8"
+  },
+  "extra": {
+    "laminas": {
+      "config-provider": "Zfegg\\AttachmentHandler\\ConfigProvider"
+    }
+  },
+  "require-dev": {
+    "slevomat/coding-standard": "^8.0",
+    "iidestiny/flysystem-oss": "^2.7",
+    "laminas/laminas-servicemanager": "^3.10",
+    "phpunit/phpunit": "^9.5",
+    "laminas/laminas-config-aggregator": "^1.13"
+  },
+  "config": {
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
+  },
+  "scripts": {
+    "cs-check": "phpcs",
+    "cs-fix": "phpcbf"
+  }
+}

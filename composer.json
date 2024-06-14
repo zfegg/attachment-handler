@@ -26,11 +26,14 @@
     "psr/http-server-handler": "^1.0",
     "siriusphp/validation": "^3.0",
     "league/flysystem": "^1.1",
-    "laminas/laminas-diactoros": "^2.8"
+    "laminas/laminas-diactoros": "^2.8 | ^3.0"
   },
   "extra": {
     "laminas": {
       "config-provider": "Zfegg\\AttachmentHandler\\ConfigProvider"
+    },
+    "branch-alias": {
+      "dev-master": "0.1.x-dev"
     }
   },
   "require-dev": {

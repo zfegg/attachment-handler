@@ -5,11 +5,7 @@ declare(strict_types = 1);
 namespace Zfegg\AttachmentHandler;
 
 use Iidestiny\Flysystem\Oss\OssAdapter;
-use League\Flysystem\Adapter\Ftp;
-use League\Flysystem\Adapter\Ftpd;
-use League\Flysystem\Adapter\Local;
-use League\Flysystem\Adapter\NullAdapter;
-use League\Flysystem\AdapterInterface;
+use League\Flysystem\FilesystemAdapter;
 
 class FlysystemAdapterFactory
 {
@@ -23,7 +19,7 @@ class FlysystemAdapterFactory
         self::$factories[$schema] = $factory;
     }
 
-    public static function createFromUri(string $uri): AdapterInterface
+    public static function createFromUri(string $uri): FilesystemAdapter
     {
         $info = parse_url($uri);
         $query = [];
@@ -66,8 +62,7 @@ class FlysystemAdapterFactory
                     ...$query
                 );
             case 'ftp':
-            case 'ftpd':
-            case "sftp":
+            case 'ftps':
                 if (isset($info['user'])) {
                     $info['username'] = $info['user'];
                     unset($info['user']);
@@ -76,27 +71,33 @@ class FlysystemAdapterFactory
                     $info['password'] = $info['pass'];
                     unset($info['pass']);
                 }
+                $info['root'] = $info['path'];
+                $info['ssl'] = $info['scheme'] === 'ftps';
                 $config = $info + $query;
 
-                $adapterClasses = [
-                    'ftp' => Ftp::class,
-                    'ftpd' => Ftpd::class,
-                    'sftp' => \League\Flysystem\Sftp\SftpAdapter::class,
-                ];
-                $className = $adapterClasses[$schema];
-
-                return new $className($config);
+                return new \League\Flysystem\Ftp\FtpAdapter(
+                    \League\Flysystem\Ftp\FtpConnectionOptions::fromArray($config),
+                );
+            case "sftp":
+                return new \League\Flysystem\PhpseclibV3\SftpAdapter(
+                    new \League\Flysystem\PhpseclibV3\SftpConnectionProvider(
+                        $info['host'],
+                        $info['user'],
+                        $info['pass'] ?? null,
+                        ...$query,
+                        port: $info['port'] ?? 22,
+                    ),
+                    $info['path'] ?? '/tmp',
+                );
             case "file":
-                return new Local($info['path'], ...$query);
+                return new \League\Flysystem\Local\LocalFilesystemAdapter($info['path'], ...$query);
             case "null":
-                return new NullAdapter();
             case "memory":
-                return new \League\Flysystem\Memory\MemoryAdapter();
+                return new \League\Flysystem\InMemory\InMemoryFilesystemAdapter();
             case "zip":
                 return new \League\Flysystem\ZipArchive\ZipArchiveAdapter(
-                    $info['path'],
-                    null,
-                    $query['prefix'] ?? null
+                    new \League\Flysystem\ZipArchive\FilesystemZipArchiveProvider($info['path']),
+                    ...$query,
                 );
             default:
                 if (isset(self::$factories[$schema])) {

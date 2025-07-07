@@ -5,7 +5,7 @@ declare(strict_types = 1);
 namespace Zfegg\AttachmentHandler\Factory;
 
 use League\Flysystem\Filesystem;
-use League\Flysystem\FilesystemInterface;
+use League\Flysystem\FilesystemWriter;
 use Psr\Container\ContainerInterface;
 use Sirius\Validation\ValueValidator;
 use Zfegg\AttachmentHandler\AttachmentHandler;
@@ -30,7 +30,7 @@ class AttachmentHandlerFactory
         return new AttachmentHandler(
             $validator,
             ! isset($config['filesystem']) || is_string($config['filesystem'])
-                ? $container->get($config['filesystem'] ?? FilesystemInterface::class)
+                ? $container->get($config['filesystem'] ?? FilesystemWriter::class)
                 : new Filesystem(
                     FlysystemAdapterFactory::createFromUri($config['filesystem']['path']),
                     $config['filesystem']['config'] ?? null

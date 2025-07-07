@@ -5,7 +5,7 @@ declare(strict_types = 1);
 namespace Zfegg\AttachmentHandler;
 
 use Laminas\Diactoros\Response\JsonResponse;
-use League\Flysystem\FilesystemInterface;
+use League\Flysystem\FilesystemWriter;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
@@ -18,7 +18,7 @@ class AttachmentHandler implements RequestHandlerInterface
 
     public function __construct(
         private ValueValidator $validator,
-        private FilesystemInterface $filesystem,
+        private FilesystemWriter $filesystem,
         private string $path,
         string $url = '/',
     ) {

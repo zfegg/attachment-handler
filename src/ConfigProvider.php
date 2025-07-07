@@ -5,7 +5,9 @@ declare(strict_types = 1);
 namespace Zfegg\AttachmentHandler;
 
 use League\Flysystem\Filesystem;
-use League\Flysystem\FilesystemInterface;
+use League\Flysystem\FilesystemOperator;
+use League\Flysystem\FilesystemReader;
+use League\Flysystem\FilesystemWriter;
 
 class ConfigProvider
 {
@@ -46,7 +48,9 @@ class ConfigProvider
                 Filesystem::class => Factory\FilesystemFactory::class,
             ],
             'aliases' => [
-                FilesystemInterface::class => Filesystem::class,
+                FilesystemOperator::class => Filesystem::class,
+                FilesystemWriter::class => Filesystem::class,
+                FilesystemReader::class => Filesystem::class,
             ],
         ];
     }

@@ -15,7 +15,7 @@ class FilesystemFactory
         $config = $container->get('config')[Filesystem::class] ?? [];
         return new Filesystem(
             FlysystemAdapterFactory::createFromUri($config['path']),
-            $config['config'] ?? null
+            $config['config'] ?? []
         );
     }
 }

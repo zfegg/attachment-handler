@@ -25,7 +25,7 @@
     "psr/http-factory": "^1.0",
     "psr/http-server-handler": "^1.0",
     "siriusphp/validation": "^3.0",
-    "league/flysystem": "^1.1",
+    "league/flysystem": "^3",
     "laminas/laminas-diactoros": "^2.8 | ^3.0"
   },
   "extra": {
@@ -38,10 +38,14 @@
   },
   "require-dev": {
     "slevomat/coding-standard": "^8.0",
-    "iidestiny/flysystem-oss": "^2.7",
+    "iidestiny/flysystem-oss": "^4",
     "laminas/laminas-servicemanager": "^3.10",
     "phpunit/phpunit": "^9.5",
-    "laminas/laminas-config-aggregator": "^1.13"
+    "laminas/laminas-config-aggregator": "^1.13",
+    "league/flysystem-ftp": "^3.29",
+    "league/flysystem-memory": "^3.29",
+    "league/flysystem-ziparchive": "^3.29",
+    "league/flysystem-sftp-v3": "^3.29"
   },
   "config": {
     "allow-plugins": {

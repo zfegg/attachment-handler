@@ -26,7 +26,7 @@ class AttachmentHandlerTest extends TestCase
             (function () {
                 return [
                     Filesystem::class => [
-                        'path' => 'null://null'
+                        'path' => 'memory://null'
                     ]
                 ];
             })

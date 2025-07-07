@@ -79,13 +79,15 @@ class FlysystemAdapterFactory
                     \League\Flysystem\Ftp\FtpConnectionOptions::fromArray($config),
                 );
             case "sftp":
+                if (isset($info['port'])) {
+                    $query['port'] = $info['port'];
+                }
                 return new \League\Flysystem\PhpseclibV3\SftpAdapter(
                     new \League\Flysystem\PhpseclibV3\SftpConnectionProvider(
                         $info['host'],
                         $info['user'],
                         $info['pass'] ?? null,
                         ...$query,
-                        port: $info['port'] ?? 22,
                     ),
                     $info['path'] ?? '/tmp',
                 );

@@ -90,7 +90,7 @@ class AttachmentHandler implements RequestHandlerInterface
                 $this->filesystem->writeStream($path, $file->getStream()->detach());
                 $result[$key] = [
                     'name' => $fileInfo['name'],
-                    'path' => $this->url . '/' . $path,
+                    'url'  => $this->url . '/' . $path,
                     'type' => $fileInfo['type'],
                 ];
             }
